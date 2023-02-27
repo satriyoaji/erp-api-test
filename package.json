@@ -1,7 +1,7 @@
 {
   "name": "merlion-api",
   "version": "1.0.0",
-  "description": "Merlion API",
+  "description": "Point ERP",
   "main": "build/index.js",
   "type": "module",
   "private": true,

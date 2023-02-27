@@ -25,23 +25,17 @@ export default class DbSeedCommand extends BaseCommand {
       );
       dbConnection.database(connection[connection.default].name);
 
+      // Roles
+      const { rolesSeed } = await import("@src/modules/roles/seeds/roles.seed.js");
+      await dbConnection.collection("roles").deleteAll();
+      const rolesData = await dbConnection.collection("roles").createMany(rolesSeed);
+      console.info(rolesData);
+
       // Users
       const { usersSeed } = await import("@src/modules/users/seeds/users.seed.js");
       await dbConnection.collection("users").deleteAll();
       const usersData = await dbConnection.collection("users").createMany(usersSeed);
       console.info(usersData);
-
-      // Institutions
-      const { institutionsSeed } = await import("@src/modules/institutions/seeds/institutions.seed.js");
-      await dbConnection.collection("institutions").deleteAll();
-      const institutionsData = await dbConnection.collection("institutions").createMany(institutionsSeed);
-      console.info(institutionsData);
-
-      // Clusters
-      const { clustersSeed } = await import("@src/modules/clusters/seeds/clusters.seed.js");
-      await dbConnection.collection("clusters").deleteAll();
-      const clustersData = await dbConnection.collection("clusters").createMany(clustersSeed);
-      console.info(clustersData);
     } catch (error) {
       console.error(error);
     } finally {

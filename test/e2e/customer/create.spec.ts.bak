@@ -1,5 +1,6 @@
 import request from "supertest";
 import { createApp } from "@src/app.js";
+import { db } from "@src/database/database.js";
 
 describe("create customer", () => {
   it("should check user is authorized", async () => {
