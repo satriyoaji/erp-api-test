@@ -1,0 +1,18 @@
+# auto generate npm
+node_modules
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# build
+build
+
+# envorinment variable
+.env
+.env.local
+.env.production
+.env.**.local
+
+# test
+coverage
+a.json

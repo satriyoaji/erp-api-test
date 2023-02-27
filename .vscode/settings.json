@@ -1,0 +1,15 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": [
+    "javascript",
+    "typescript"
+  ],
+  "css.customData": [
+    ".vscode/tailwindcss.json"
+  ],
+  "emmet.includeLanguages": {
+    "postcss": "css"
+  }
+}

@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply p-8 bg-white text-gray-800;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  table {
+    @apply w-full;
+  }
+  p {
+    @apply my-4;
+  }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto w-[600px] ;
+  }
+  .content {
+    @apply my-8 p-6 bg-gray-100 shadow;
+  }
+  .button {
+    @apply py-2.5 px-5 rounded no-underline text-sm inline-block text-white bg-blue-600;
+  }
+}
