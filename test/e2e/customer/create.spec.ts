@@ -37,21 +37,19 @@ describe("create customer", () => {
     const response = await request(app).post("/v1/customers").send({}).set("Authorization", `Bearer ${accessToken}`);
     expect(response.statusCode).toEqual(422);
     expect(response.body.message).toBe("Unprocessable Entity");
+    expect(response.body.errors.code).toBe(["code is required"]);
     expect(response.body.errors.name).toBe(["name is required"]);
-    expect(response.body.errors.chartOfAccount).toBe(["chart of account is required"]);
-    expect(response.body.errors.unit).toBe(["unit is required"]);
 
     // only send 1 required fields
     const response2 = await request(app)
       .post("/v1/customers")
       .send({
-        address: "New Address",
+        name: "Customer A",
       })
       .set("Authorization", `Bearer ${accessToken}`);
     expect(response2.statusCode).toEqual(422);
     expect(response2.body.message).toBe("Unprocessable Entity");
     expect(response2.body.errors.code).toBe(["code is required"]);
-    expect(response2.body.errors.name).toBe(["name is required"]);
   });
   it("should check unique fields", async () => {
     const app = await createApp();
