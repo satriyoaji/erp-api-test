@@ -1,7 +1,7 @@
 import request from "supertest";
 import { createApp } from "@src/app.js";
 
-describe("delete item group", () => {
+describe("delete pricelist", () => {
   let _id = "";
   beforeEach(async () => {
     const app = await createApp();
@@ -11,20 +11,16 @@ describe("delete item group", () => {
       password: "admin2024",
     });
     const accessToken = authResponse.body.accessToken;
-    // send request to delete item
+    // send request to create pricelist
     const data = {
-      name: "Group A",
+      name: "item A",
     };
-    const response = await request(app)
-      .post("/v1/item-groups")
-      .send(data)
-      .set("Authorization", `Bearer ${accessToken}`);
+    const response = await request(app).post("/v1/pricelists").send(data).set("Authorization", `Bearer ${accessToken}`);
     _id = response.body._id;
   });
   it("should check user is authorized", async () => {
     const app = await createApp();
-    // send request to delete item
-    const response = await request(app).delete("/v1/item-groups/" + _id);
+    const response = await request(app).delete("/v1/pricelists/" + _id);
     expect(response.statusCode).toEqual(401);
     expect(response.body.message).toBe("Unauthorized Access");
   });
@@ -36,9 +32,9 @@ describe("delete item group", () => {
       password: "user2024",
     });
     const accessToken = authResponse.body.accessToken;
-    // send request to read item
+    // send request to read pricelist
     const response = await request(app)
-      .delete("/v1/item-groups/" + _id)
+      .delete("/v1/pricelists/" + _id)
       .set("Authorization", `Bearer ${accessToken}`);
 
     expect(response.statusCode).toEqual(403);
@@ -53,12 +49,12 @@ describe("delete item group", () => {
     });
     const accessToken = authResponse.body.accessToken;
     const responseDelete = await request(app)
-      .delete("/v1/item-groups/" + _id)
+      .delete("/v1/pricelists/" + _id)
       .set("Authorization", `Bearer ${accessToken}`);
     // expected response status
     expect(responseDelete.statusCode).toEqual(204);
 
-    const response = await request(app).get("/v1/item-groups").set("Authorization", `Bearer ${accessToken}`);
+    const response = await request(app).get("/v1/pricelists").set("Authorization", `Bearer ${accessToken}`);
     // expected response status
     expect(response.statusCode).toEqual(200);
     // expected response body

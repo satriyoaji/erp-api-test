@@ -1,11 +1,11 @@
 import request from "supertest";
 import { createApp } from "@src/app.js";
 
-describe("list all item groups", () => {
+describe("list all pricelists", () => {
   it("should check user is authorized", async () => {
     const app = await createApp();
-    // send request to list all item groups
-    const response = await request(app).get("/v1/item-groups");
+    // send request to create item
+    const response = await request(app).get("/v1/pricelists");
     expect(response.statusCode).toEqual(401);
     expect(response.body.message).toBe("Unauthorized Access");
   });
@@ -17,8 +17,8 @@ describe("list all item groups", () => {
       password: "user2024",
     });
     const accessToken = authResponse.body.accessToken;
-    // send request to read item group
-    const response = await request(app).get("/v1/item-groups").set("Authorization", `Bearer ${accessToken}`);
+    // send request to read pricelist
+    const response = await request(app).get("/v1/pricelists").set("Authorization", `Bearer ${accessToken}`);
 
     expect(response.statusCode).toEqual(403);
     expect(response.body.message).toBe("Forbidden Access");
@@ -34,15 +34,15 @@ describe("list all item groups", () => {
 
     // create data
     const data = {
-      name: "item A",
+      name: "Group A",
     };
-    await request(app).post("/v1/item-groups").send(data).set("Authorization", `Bearer ${accessToken}`);
+    await request(app).post("/v1/pricelists").send(data).set("Authorization", `Bearer ${accessToken}`);
     const data2 = {
-      name: "item B",
+      name: "Group B",
     };
-    await request(app).post("/v1/item-groups").send(data2).set("Authorization", `Bearer ${accessToken}`);
+    await request(app).post("/v1/pricelists").send(data2).set("Authorization", `Bearer ${accessToken}`);
 
-    const response = await request(app).get("/v1/item-groups").set("Authorization", `Bearer ${accessToken}`);
+    const response = await request(app).get("/v1/pricelists").set("Authorization", `Bearer ${accessToken}`);
     // expected response status
     expect(response.statusCode).toEqual(200);
     // expected response body
@@ -63,11 +63,11 @@ describe("list all item groups", () => {
   });
 });
 
-describe("read item group", () => {
+describe("read pricelist", () => {
   it("should check user is authorized", async () => {
     const app = await createApp();
-    // send request to list all items
-    const response = await request(app).get("/v1/item-groups");
+    // send request to create item
+    const response = await request(app).get("/v1/pricelists");
     expect(response.statusCode).toEqual(401);
     expect(response.body.message).toBe("Unauthorized Access");
   });
@@ -79,8 +79,8 @@ describe("read item group", () => {
       password: "user2024",
     });
     const accessToken = authResponse.body.accessToken;
-    // send request to read item group
-    const response = await request(app).get("/v1/item-groups").set("Authorization", `Bearer ${accessToken}`);
+    // send request to read pricelist
+    const response = await request(app).get("/v1/pricelists").set("Authorization", `Bearer ${accessToken}`);
 
     expect(response.statusCode).toEqual(403);
     expect(response.body.message).toBe("Forbidden Access");
@@ -97,7 +97,7 @@ describe("read item group", () => {
     // create data
     const data = {
       code: "A1",
-      name: "item A",
+      name: "Group A",
       chartOfAccount: "Goods",
       hasProductionNumber: true,
       hasExpiryDate: false,
@@ -110,11 +110,11 @@ describe("read item group", () => {
       ],
     };
     const responseCreate = await request(app)
-      .post("/v1/item-groups")
+      .post("/v1/pricelists")
       .send(data)
       .set("Authorization", `Bearer ${accessToken}`);
     const response = await request(app)
-      .get("/v1/item-groups/" + responseCreate.body._id)
+      .get("/v1/pricelists/" + responseCreate.body._id)
       .set("Authorization", `Bearer ${accessToken}`);
     // expected response status
     expect(response.statusCode).toEqual(200);

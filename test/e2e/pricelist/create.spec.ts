@@ -1,11 +1,11 @@
 import request from "supertest";
 import { createApp } from "@src/app.js";
 
-describe("create item group", () => {
+describe("create pricelist", () => {
   it("should check user is authorized", async () => {
     const app = await createApp();
-    // send request to create item group
-    const response = await request(app).post("/v1/item-groups").send({});
+    // send request to create pricelist
+    const response = await request(app).post("/v1/pricelists").send({});
     expect(response.statusCode).toEqual(401);
     expect(response.body.message).toBe("Unauthorized Access");
   });
@@ -17,8 +17,8 @@ describe("create item group", () => {
       password: "user2024",
     });
     const accessToken = authResponse.body.accessToken;
-    // send request to create item group
-    const response = await request(app).post("/v1/item-groups").send({}).set("Authorization", `Bearer ${accessToken}`);
+    // send request to create pricelist
+    const response = await request(app).post("/v1/pricelists").send({}).set("Authorization", `Bearer ${accessToken}`);
 
     expect(response.statusCode).toEqual(403);
     expect(response.body.message).toBe("Forbidden Access");
@@ -30,11 +30,11 @@ describe("create item group", () => {
       username: "admin",
       password: "admin2024",
     });
-    // send request to create item group
+    // send request to create pricelist
     const accessToken = authResponse.body.accessToken;
 
     // do not send all required fields
-    const response = await request(app).post("/v1/item-groups").send({}).set("Authorization", `Bearer ${accessToken}`);
+    const response = await request(app).post("/v1/pricelists").send({}).set("Authorization", `Bearer ${accessToken}`);
     expect(response.statusCode).toEqual(422);
     expect(response.body.message).toBe("Unprocessable Entity");
     expect(response.body.errors.name).toBe(["name is required"]);
@@ -47,15 +47,12 @@ describe("create item group", () => {
       password: "admin2024",
     });
     const accessToken = authResponse.body.accessToken;
-    // send request to create item group
+    // send request to create pricelist
     const data = {
       name: "Group A",
     };
-    await request(app).post("/v1/item-groups").send(data).set("Authorization", `Bearer ${accessToken}`);
-    const response = await request(app)
-      .post("/v1/item-groups")
-      .send(data)
-      .set("Authorization", `Bearer ${accessToken}`);
+    await request(app).post("/v1/pricelists").send(data).set("Authorization", `Bearer ${accessToken}`);
+    const response = await request(app).post("/v1/pricelists").send(data).set("Authorization", `Bearer ${accessToken}`);
 
     expect(response.statusCode).toEqual(422);
     expect(response.body.message).toBe("Unprocessable Entity");
@@ -69,14 +66,11 @@ describe("create item group", () => {
       password: "admin2024",
     });
     const accessToken = authResponse.body.accessToken;
-    // send request to create item group
+    // send request to create pricelist
     const data = {
       name: "Group A",
     };
-    const response = await request(app)
-      .post("/v1/item-groups")
-      .send(data)
-      .set("Authorization", `Bearer ${accessToken}`);
+    const response = await request(app).post("/v1/pricelists").send(data).set("Authorization", `Bearer ${accessToken}`);
     // expected response status
     expect(response.statusCode).toEqual(201);
     // expected response body

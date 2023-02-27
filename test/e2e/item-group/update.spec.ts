@@ -1,7 +1,7 @@
 import request from "supertest";
 import { createApp } from "@src/app.js";
 
-describe("update item", () => {
+describe("update item group", () => {
   let _id = "";
   beforeEach(async () => {
     const app = await createApp();
@@ -11,9 +11,9 @@ describe("update item", () => {
       password: "admin2024",
     });
     const accessToken = authResponse.body.accessToken;
-    // send request to create item
+    // send request to update item group
     const data = {
-      name: "item A",
+      name: "Group A",
     };
     const response = await request(app)
       .post("/v1/item-groups")
@@ -23,7 +23,7 @@ describe("update item", () => {
   });
   it("should check user is authorized", async () => {
     const app = await createApp();
-    // send request to create item
+    // send request to update item group
     const response = await request(app)
       .patch("/v1/item-groups/" + _id)
       .send({});
@@ -38,7 +38,7 @@ describe("update item", () => {
       password: "user2024",
     });
     const accessToken = authResponse.body.accessToken;
-    // send request to create item
+    // send request to update item group
     const response = await request(app)
       .patch("/v1/item-groups/" + _id)
       .send({})
@@ -54,7 +54,7 @@ describe("update item", () => {
       username: "admin",
       password: "admin2024",
     });
-    // send request to create item
+    // send request to update item group
     const accessToken = authResponse.body.accessToken;
 
     // do not send all required fields
@@ -74,9 +74,9 @@ describe("update item", () => {
       password: "admin2024",
     });
     const accessToken = authResponse.body.accessToken;
-    // send request to create item
+    // send request to update item group
     const data = {
-      name: "item A",
+      name: "Group A",
     };
 
     const response = await request(app)
@@ -96,9 +96,9 @@ describe("update item", () => {
       password: "admin2024",
     });
     const accessToken = authResponse.body.accessToken;
-    // send request to create item
+    // send request to update item group
     const data = {
-      name: "item AAA",
+      name: "Group AAA",
     };
     const response = await request(app)
       .patch("/v1/item-groups/" + _id)
