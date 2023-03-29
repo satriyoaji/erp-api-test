@@ -33,7 +33,7 @@
     "@point-hub/express-error-handler": "^0.0.6",
     "@point-hub/express-utils": "^0.1.0",
     "@point-hub/nodemailer-inlinecss": "^1.0.2",
-    "@point-hub/papi": "^0.0.1",
+    "@point-hub/papi": "^0.0.4",
     "argon2": "^0.30.2",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
